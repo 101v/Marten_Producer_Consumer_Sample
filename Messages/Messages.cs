@@ -12,9 +12,19 @@ namespace Messages
         public string Name { get; set; }
     }
 
-    public class ChangeEmployeeName : Event
+    public class EmployeeNameChanged : Event
     {
         public string OldName { get; set; }
         public string NewName { get; set; }
+    }
+
+    public class FailedProjection : Event
+    {
+        public string Reason { get; set; }
+    }
+
+    public class FailedProjectionCaused : Event
+    {
+        public string Reason { get; set; }
     }
 }

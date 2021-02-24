@@ -22,7 +22,6 @@ namespace Producer
                 _.Events.DatabaseSchemaName = "event_store";
                 _.Events.StreamIdentity = StreamIdentity.AsString;
                 _.Events.UseAppendEventForUpdateLock = true;
-                //_.Events.AsyncProjections.Add<EventProcessor>();
             });
 
             Console.WriteLine("This is PRODUCER type A to Create C to Change and  E to exit");
@@ -51,7 +50,7 @@ namespace Producer
                 }
                 else if (key == ConsoleKey.C)
                 {
-                    var changed = new ChangeEmployeeName
+                    var changed = new EmployeeNameChanged
                     {
                         OldName = "Vimal Patel",
                         NewName = "Dharmi Patel"
@@ -59,6 +58,19 @@ namespace Producer
                     using (var session = store.OpenSession())
                     {
                         session.Events.Append("TestStream001", changed);
+                        session.SaveChanges();
+                    }
+
+                }
+                else if (key == ConsoleKey.F)
+                {
+                    var changed = new FailedProjection()
+                    {
+                        Reason = "Caused Failure"
+                    };
+                    using (var session = store.OpenSession())
+                    {
+                        session.Events.Append("DeadMessageStream001", changed);
                         session.SaveChanges();
                     }
 
