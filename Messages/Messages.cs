@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using insight123.Messaging.Contract;
+﻿using insight123.Messaging.Contract;
 
 namespace Messages
 {

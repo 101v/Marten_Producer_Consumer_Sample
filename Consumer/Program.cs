@@ -1,7 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Marten;
@@ -33,17 +30,17 @@ namespace Consumer
                 });
 
                 IProjection[] projections = {
-                    //new EventProcessor(0, store),
-                    //new EventProcessor01(1, store),
-                    //new EventProcessor02(2, store),
-                    //new EventProcessor03(3, store),
-                    //new EventProcessor04(4, store),
-                    //new EventProcessor05(5, store),
-                    //new EventProcessor06(6, store),
-                    //new EventProcessor07(7, store),
-                    //new EventProcessor08(8, store),
-                    //new EventProcessor09(9, store),
-                    //new EventProcessor10(10, store),
+                    new EventProcessor(0, store),
+                    new EventProcessor01(1, store),
+                    new EventProcessor02(2, store),
+                    new EventProcessor03(3, store),
+                    new EventProcessor04(4, store),
+                    new EventProcessor05(5, store),
+                    new EventProcessor06(6, store),
+                    new EventProcessor07(7, store),
+                    new EventProcessor08(8, store),
+                    new EventProcessor09(9, store),
+                    new EventProcessor10(10, store),
                     new BadProcessor(11, store)
                 };
 
@@ -94,17 +91,12 @@ namespace Consumer
 
             settings.ExceptionHandling
                 .OnException<Exception>()
-                .StopAll(x  =>
+                .Retry(3, TimeSpan.FromSeconds(10))
+                .AfterMaxAttempts = new StopAll(x =>
                 {
                     logger.Error(x);
                     hc.Stop();
                 });
-            //    .Retry(3, TimeSpan.FromMinutes(1))
-            //    .AfterMaxAttempts = new Stop(x =>
-            //{
-            //    logger.Error(x);
-            //    hc.Stop();
-            //});
 
             daemon = documentStore.BuildProjectionDaemon(logger: daemonLogger, settings: settings, projections: projections);
 
@@ -119,7 +111,7 @@ namespace Consumer
             try
             {
                 logger.Info("Stopping service...");
-                daemon?.StopAll();
+                //daemon?.StopAll();
                 logger.Info("Service stopped.");
             }
             catch (Exception exception)
@@ -184,7 +176,7 @@ namespace Consumer
 
         public Type[] Consumes { get; }
 
-        public AsyncOptions AsyncOptions { get; } = new AsyncOptions();
+        public AsyncOptions AsyncOptions { get; } = new AsyncOptions {PageSize = 10};
     }
 
     public class EventProcessor01 : EventProcessor
