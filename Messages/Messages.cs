@@ -1,7 +1,26 @@
-﻿using insight123.Messaging.Contract;
+﻿using System;
 
 namespace Messages
 {
+    public interface IEvent
+    {
+        Guid SourceId { get; set; }
+        int Version { get; set; }
+        DateTimeOffset OccurredOn { get; set; }
+        Guid CorrelationId { get; set; }
+    }
+
+    public abstract class Event : IEvent
+    {
+        protected Event()
+        { }
+
+        public Guid SourceId { get; set; }
+        public int Version { get; set; }
+        public DateTimeOffset OccurredOn { get; set; }
+        public Guid CorrelationId { get; set; }
+    }
+
     public class EmployeeCreated : Event
     {
         public string Name { get; set; }

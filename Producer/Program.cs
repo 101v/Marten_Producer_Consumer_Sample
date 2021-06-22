@@ -1,5 +1,4 @@
 ﻿using System;
-using insight123.Common;
 using Marten;
 using Marten.Events;
 using Messages;
@@ -32,7 +31,6 @@ namespace Producer
                     var added = new EmployeeCreated
                     {
                         Name = "Vimal Patel",
-                        Creator = new Creator { CreatorId = Guid.Empty, CreatorName = "Administrator" },
                         OccurredOn = DateTimeOffset.Now,
                         SourceId = Guid.Empty,
                         Version = 1

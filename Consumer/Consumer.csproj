@@ -36,12 +36,6 @@
     <Reference Include="Baseline, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Baseline.1.5.0\lib\net46\Baseline.dll</HintPath>
     </Reference>
-    <Reference Include="insight123.Common, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\insight123.Common.3.0.0\lib\net46\insight123.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="insight123.Messaging.Contract, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\insight123.Messaging.Contract.3.0.0\lib\net46\insight123.Messaging.Contract.dll</HintPath>
-    </Reference>
     <Reference Include="Marten, Version=3.7.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Marten.3.7.1\lib\net46\Marten.dll</HintPath>
     </Reference>
