@@ -30,17 +30,6 @@ namespace Consumer
                 });
 
                 IProjection[] projections = {
-                    //new EventProcessor(0, store),
-                    //new EventProcessor01(1, store),
-                    //new EventProcessor02(2, store),
-                    //new EventProcessor03(3, store),
-                    //new EventProcessor04(4, store),
-                    //new EventProcessor05(5, store),
-                    //new EventProcessor06(6, store),
-                    //new EventProcessor07(7, store),
-                    //new EventProcessor08(8, store),
-                    //new EventProcessor09(9, store),
-                    //new EventProcessor10(10, store),
                     new BadProcessor(11, store)
                 };
 
@@ -176,9 +165,10 @@ namespace Consumer
 
         public Type[] Consumes { get; }
 
-        public AsyncOptions AsyncOptions { get; } = new AsyncOptions {PageSize = 10};
+        public AsyncOptions AsyncOptions { get; } = new AsyncOptions {PageSize = 10, MaximumStagedEventCount = 10};
     }
 
+    #region other processors
     public class EventProcessor01 : EventProcessor
     {
         public EventProcessor01(int id, IDocumentStore store) : base(id, store)
@@ -238,7 +228,7 @@ namespace Consumer
         public EventProcessor10(int id, IDocumentStore store) : base(id, store)
         { }
     }
-
+    #endregion other processors
     public class BadProcessor : EventProcessor
     {
         public BadProcessor(int id, IDocumentStore store)

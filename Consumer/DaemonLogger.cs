@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Baseline;
 using Marten.Events.Projections.Async;
 using Topshelf.Logging;
 
@@ -19,7 +18,7 @@ namespace Consumer
 
         public void BeginStartAll(IEnumerable<IProjectionTrack> values)
         {
-            logger.Info($"Starting all tracks: {values.Select(x => x.ViewType.FullName).Join(", ")}");
+            logger.Info($"Starting all tracks: {string.Join(", ", values.Select(x => x.ViewType.FullName))}");
         }
 
         public void DeterminedStartingPosition(IProjectionTrack track)
@@ -34,7 +33,7 @@ namespace Consumer
 
         public void BeginRebuildAll(IEnumerable<IProjectionTrack> values)
         {
-            logger.Info($"Beginning a Rebuild of {values.Select(x => x.ViewType.FullName).Join(", ")}");
+            logger.Info($"Beginning a Rebuild of {string.Join(", ",values.Select(x => x.ViewType.FullName))}");
         }
 
         public void FinishRebuildAll(TaskStatus status, AggregateException exception)
